@@ -1,0 +1,105 @@
+==========================
+TO DO
+==========================
+
+(1) Garantir que o \cite lide com indicação de páginas em múltiplas citações
+
+    (i) [Solução Provisória] Colocar o seguinte trecho de código antes da personalização de cores (linha ~137, main.tex)
+
+    %===========================
+    %WORKAROUND FOR CITE PAGES
+    %IN MULTIPLE CITATIONS
+    %===========================
+    \usepackage{cite}
+    \makeatletter
+    \newcommand{\citecomment}[2][]{\citen{#2}#1\citevar}
+    \newcommand{\citeone}[1]{\citecomment{#1}}
+    \newcommand{\citetwo}[2][]{\citecomment[,~#1]{#2}}
+    \newcommand{\citevar}{\@ifnextchar\bgroup{;~\citeone}{\@ifnextchar[{;~\citetwo}{]}}}
+    \newcommand{\citefirst}{\@ifnextchar\bgroup{\citeone}{\@ifnextchar[{\citetwo}{]}}}
+    \newcommand{\cites}{[\citefirst}
+    \makeatother
+
+    (ii) [Problema]: Ele bagunça o ABNT padrão. Corrige uma coisa, e bagunça tudo que estava organizado antes
+
+
+==========================
+DONE
+==========================
+
+(1) Personalizar com os seus dados o arquivo "custom.tex"
+
+(2) Garantir capítulos começando em páginas ímpares
+    (i) Substituir a linha 48 do "main.tex" de 'oneside,' para 'twoside,'
+
+(3) Garantir que o idioma principal de hifenização seja o inglês
+    (i) Comentar e descomentar linhas 57-61 do "main.tex" de
+    -     french,				
+	   spanish,
+        % brazil,				
+	   english,
+	   brazil,
+    para
+    -   % french,				
+	% spanish,
+          brazil,				
+	   english,
+	% brazil,
+
+(4) Garantir a formatação padrão das citações para o inglês
+    (i) Descomentar a linha 340 do "main.tex"
+    - \bibliographystyle{abntexalfenglish}
+    
+(5) Corrigir a citação de "(AUTHOR, YEAR)" para '(Author, YEAR)'
+
+    (i) Substituir a linha 93 do 'main.tex' de
+    - \usepackage[versalete,alf,abnt-and-type=e,abnt-etal-list=0,abnt-etal-cite=3]{abntex2/abntex2cite} 
+    por
+    - \usepackage[versalete,
+    alf,minhasopcoes]{abntex2/abntex2cite} 
+
+    (ii) Incluir no  início do 'references2.bib':
+
+    @ABNT-options{minhasopcoes,
+        abnt-and-type=e,
+        abnt-etal-list=0,
+        abnt-etal-cite=3,
+        abnt-cite-style="(Author, YEAR)"
+    }
+
+(6) Remover a lista de códigos, de quadros, de símbolos, apêndices e anexos
+    (i) Comentar as linhas 237-263, 298, 352 e 356 (main.tex) correspondentes às três listas 
+
+(7) Comentar a inclusão dos três capítulos do summary.tex
+
+(8) Incluir as inclusões reversas nas referências "Cited on page xxx"
+
+    %------------------
+    %Using Backref
+    %------------------
+    \usepackage[english,hyperpageref]{backref}
+    
+    % Configurações do pacote backref
+    % Usado sem a opção hyperpageref de backref
+    \renewcommand{\backrefpagesname}{Cited on page(s):~}
+    % Texto padrão antes do número das páginas
+    \renewcommand{\backref}{}
+    % Define os textos da citação
+    \renewcommand*{\backrefalt}[4]{
+    \ifcase #1 %
+    No citations.%
+    \or
+    Cited on page #2.%
+    \else
+    Cited #1 times on pages #2.%
+    \fi}%
+
+(9) Incluir a Lista de Quadros em inglês
+
+    (i) abntex2/abntex2-cin-ufpe.sty, Linha 1242
+    - Substituir "Quadro" por "Frame"
+
+    (ii) abntex2/abntex2-cin-ufpe.sty, Linha 1243
+    - Substituir "Lista de quadros" por "List of Frames"
+
+    (iii) Descomentar só a parte da lista de quadros comentada em (6)
