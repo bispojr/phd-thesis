@@ -1,0 +1,1 @@
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QIn Quico's case, even when the interview followed a more informal tone, his reported \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q case about the development of a Discord bot did not flow to a critical reflection or self-human development per si.\\E$"}
